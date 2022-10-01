@@ -8,8 +8,19 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 
-
 public class DobbeltLenketListe<T> implements Liste<T> {
+
+    public static void main(String[] args) {
+        String[] s1 = {}, s2 = {"A"}, s3 = {null,"A",null,"B",null};
+        DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
+        DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
+        DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
+
+        System.out.println(l1.toString() + " " + l2.toString()
+                + " " + l3.toString() + " " + l1.omvendtString() + " "
+                + l2.omvendtString() + " " + l3.omvendtString());
+    }
+
     /**
      * Node class
      *
@@ -132,11 +143,47 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        // Bruker klassen StringBuilder til å lage strengen
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+
+        // Om tom returner []
+        if(tom()) return "[]";
+
+        // Setter current til hode og legger så til verdien i strengen
+        Node current = hode;
+        sb.append(current.verdi);
+
+        // Traveserer gjennom løkken og legger til verdiene
+        for(int i = 1; i < antall; i++){
+            current = current.neste;
+            sb.append(", " + current.verdi);
+        }
+        sb.append(']');
+
+        return sb.toString();
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        // Bruker klassen StringBuilder til å lage strengen
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+
+        // Om tom returner []
+        if(tom()) return "[]";
+
+        // Setter current til hode og legger så til verdien i strengen
+        Node current = hale;
+        sb.append(hale.verdi);
+
+        // Traveserer gjennom løkken og legger til verdiene
+        for(int i = antall; i > 1; i--){
+            current = current.forrige;
+            sb.append(", " + current.verdi);
+        }
+        sb.append(']');
+
+        return sb.toString();
     }
 
     @Override
