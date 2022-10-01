@@ -10,17 +10,6 @@ import java.util.Objects;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
-    public static void main(String[] args) {
-        String[] s1 = {}, s2 = {"A"}, s3 = {null,"A",null,"B",null};
-        DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
-        DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
-        DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
-
-        System.out.println(l1.toString() + " " + l2.toString()
-                + " " + l3.toString() + " " + l1.omvendtString() + " "
-                + l2.omvendtString() + " " + l3.omvendtString());
-    }
-
     /**
      * Node class
      *
@@ -98,7 +87,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+        // Kaster NullPointerException om man forsøker å leggge til null
+        Objects.requireNonNull(verdi, "Du kan ikke legge til NULL");
+
+        if(tom()){
+            // Om den er tom setter man hode og hale til en node med verdien og nullpekere begge veier
+            hode = hale = new Node(verdi, null, null);
+        }else{
+            // Oppretter den nye noden, og setter nestepeker fra halen til den nye noden. Setter så halen til den nye noden
+            hale = hale.neste = new Node(verdi, hale, null);
+        }
+
+        endringer++;
+        antall++;
+        return true;
     }
 
     @Override
