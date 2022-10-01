@@ -10,12 +10,6 @@ import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
-
-    public static void main(String[] args) {
-        Liste<String> liste = new DobbeltLenketListe<>(new String[] {"1","2"});
-        System.out.println(liste.antall() + " " + liste.tom());
-    }
-
     /**
      * Node class
      *
@@ -51,11 +45,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe(T[] a) {
         Objects.requireNonNull(a, "Tabellen a er null!");
 
-        for(int i = 0; i<a.length; i++){
+        // Finner første som ikke er null. Inspirert av kompendiet
+        int i = 0; for(; i < a.length && a[i] == null; i++);
 
+        // Kjøres visst alt i listen er null. Setter da antall til 0 og returnerer.
+        if(i==a.length){
+            antall = 0;
+            return;
         }
 
+        // Setter hode
+        Node current = hode = new Node(a[i], null, null);
+        antall++;
 
+        // Går gjennom listen, fra elementet etter hode i listen
+        for(i++; i<a.length; i++){
+            // Lager en ny node. Setter peker fra halen (current) til nyopprettet node. Setter halen (current)
+            // til nyopprettet Node
+            if(a[i] != null){
+                current = current.neste = new Node(a[i], current, null);
+                antall++;
+            }
+        }
+
+        hale = current;
     }
 
     public Liste<T> subliste(int fra, int til) {

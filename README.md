@@ -10,6 +10,12 @@ Ikke relevant siden jeg er 1 person
 
 # Oppgavebeskrivelse
 
-I oppgave 1 så gikk vi frem ved å ...
+Oppgave 1)
 
-I oppgave 2 så brukte vi en ... til å ...
+Ble løst ved å først finne første verdi som ikke var null. Så setter den det
+som hode. Så vil den løkke gjennom listen og finne flere som ikke er null. Den
+vil da sette en peker fra det som blir halen til den nye noden. Den sørger for
+å oppdatere variabelen antall til enhver tid.
+
+Sjekklisten fungerte.
+
