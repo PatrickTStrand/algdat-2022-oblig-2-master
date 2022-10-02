@@ -14,7 +14,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static void main(String[] args) {
         DobbeltLenketListe<Integer> test = new DobbeltLenketListe<>(new Integer[] {10,11,12,13,14});
         System.out.println(test.toString());
-        test.finnNode(2);
+        test.oppdater(5,5);
+        System.out.println(test.toString());
     }
 
     /**
@@ -121,10 +122,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     private Node<T> finnNode(int indeks){
-        if(indeks>antall-1){
-            throw new NoSuchElementException();
-        }
-
         int i;
         Node current;
         if(indeks < antall/2){
@@ -144,7 +141,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+
+        return finnNode(indeks).verdi;
     }
 
     @Override
@@ -154,7 +153,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+        Objects.requireNonNull(nyverdi, "Kan ikke legge til null som verdi");
+
+        Node node = finnNode(indeks);
+        T gammelVerdi = (T) node.verdi;
+        node.verdi = nyverdi;
+        endringer++;
+
+        return gammelVerdi;
     }
 
     @Override
