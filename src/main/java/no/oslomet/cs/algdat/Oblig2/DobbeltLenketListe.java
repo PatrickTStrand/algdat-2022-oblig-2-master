@@ -6,9 +6,16 @@ package no.oslomet.cs.algdat.Oblig2;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
+
+    public static void main(String[] args) {
+        DobbeltLenketListe<Integer> test = new DobbeltLenketListe<>(new Integer[] {10,11,12,13,14});
+        System.out.println(test.toString());
+        test.finnNode(2);
+    }
 
     /**
      * Node class
@@ -111,6 +118,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean inneholder(T verdi) {
         throw new UnsupportedOperationException();
+    }
+
+    private Node<T> finnNode(int indeks){
+        if(indeks>antall-1){
+            throw new NoSuchElementException();
+        }
+
+        int i;
+        Node current;
+        if(indeks < antall/2){
+            current = hode;
+             for(i = 0; i<indeks; i++){
+                current = current.neste;
+             }
+        }else{
+            current = hale;
+            for(i = antall-1; i>indeks; i--){
+                current = current.forrige;
+            }
+        }
+
+        return current;
     }
 
     @Override
