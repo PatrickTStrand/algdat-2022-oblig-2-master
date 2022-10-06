@@ -166,7 +166,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         // Om vi har kommet hit vet vi at verdi skal plasseres ett sted mellom to verdier
 
-        //Finner noden som skal ha nestepeker til ny node
+        // Finner noden som skal ha nestepeker til ny node
         Node forrige = finnNode(indeks-1);
 
         // Setter nestepekeren til ny node
