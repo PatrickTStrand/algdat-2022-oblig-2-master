@@ -135,32 +135,43 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
+        // Sjekker om verdi er null eller om indeks er ulovlig
         Objects.requireNonNull(verdi, "Du kan ikke legge til null");
         if(indeks<0 || indeks>antall){
             throw new IndexOutOfBoundsException("Indeksen treffer ikke i listen");
         }
 
+        // Visst tom bruk leggInn(verdi) fordi den støtter det scenarioet
         if(tom()){
             leggInn(verdi);
             return;
         }
 
+        // Kjør visst verdi skal legges først i listen
         if(indeks == 0){
+            // Setter hode til ny node, med nestepeker til forrige hode
             hode = new Node<>(verdi, null, hode);
+            // Setter gammelt hode sin forrigepeker til nytt hode
             hode.neste.forrige = hode;
             antall++;
             endringer++;
             return;
         }
 
+        // Visst verdi skal legges inn sist i listen støtter leggInn(verdi) dette scenarioet
         if(indeks == antall){
             leggInn(verdi);
             return;
         }
 
+        // Om vi har kommet hit vet vi at verdi skal plasseres ett sted mellom to verdier
+
+        //Finner noden som skal ha nestepeker til ny node
         Node forrige = finnNode(indeks-1);
 
+        // Setter nestepekeren til ny node
         forrige.neste = new Node(verdi, forrige, forrige.neste);
+        // Sørger for at noden etter ny node får forrigepeker til ny node
         forrige.neste.neste.forrige = forrige.neste;
         antall++;
         endringer++;
