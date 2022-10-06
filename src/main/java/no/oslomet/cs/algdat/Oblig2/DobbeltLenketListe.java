@@ -10,6 +10,13 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
+
+    public static void main(String[] args) {
+        Integer[] i = {0,1,2,3,4,5,6,7,8};
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>(i);
+        System.out.println(liste.inneholder(0));
+    }
+
     /**
      * Node class
      *
@@ -130,7 +137,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
+        return (indeksTil(verdi)>-1);
     }
 
     private Node<T> finnNode(int indeks){
@@ -178,7 +185,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+        Node<T> current = hode;
+        for(int i = 0; i<antall; i++){
+            if(current.verdi.equals(verdi)){
+                return i;
+            }
+            current = current.neste;
+        }
+        return -1;
     }
 
     @Override

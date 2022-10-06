@@ -55,3 +55,20 @@ og så lenge fra og til ikke var lik la jeg til
 Nodene fra superlisten ved å finne førsete noden
 og legge til Nodene etterpå. Sørget også for at
 antall ble inkrementert.
+
+Oppgave 4)
+
+For å løse indeksTil traverserte jeg gjennom
+listen og brukte equals() for å sjekke om 
+listen inneholdt verdien. Om man kommer 
+gjennom hele listen uten å finne verdien returneres
+-1.
+
+For å løse inneholder sjekket jeg om indeksen
+man fikk retuernert fra indeksTil var høyere
+enn -1. Om det er det betyr det at listen
+inneholder verdien, og det skal derfor returneres
+true.
+
+På denne oppgaven ble det bare én commit, men
+det var fordi den ble så utrolig rask å kode.
