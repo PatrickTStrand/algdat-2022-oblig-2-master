@@ -72,3 +72,21 @@ true.
 
 På denne oppgaven ble det bare én commit, men
 det var fordi den ble så utrolig rask å kode.
+
+Oppgave 5)
+
+Jeg løste oppgave leggInn(indeks, verdi)
+ved å først ta test om verdi er null eller
+om indeks er lavere enn 0 eller høyere enn antall.
+Det neste jeg sjekker er om listen er tom,
+for da kan jeg bare kjøre leggInn(verdi).
+Så sjekker jeg om den skal bli plassert først i listen.
+Visst den skal bli først setter jeg hode som den nye noden.
+Så må jeg sette hod.neste.forrige til hode, slik at det funker begge veier.
+Så må jeg inkrementer antall og endringer.
+Videre sjekker jeg om den skal bli plassert sist i listen.
+Om den skal det kan jeg bare kjøre leggInn(verdi).
+Om den ikke treffer de andre checkene vet jeg at den
+skal bli plassert et sted inne i listen, og jeg må
+da bare sørge for at pekerene går begge veier.
+Jeg trenger da ikke å forholde meg til hode og hale.

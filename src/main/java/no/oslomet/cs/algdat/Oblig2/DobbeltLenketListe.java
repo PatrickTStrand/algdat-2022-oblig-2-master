@@ -4,6 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import javax.swing.undo.CannotUndoException;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -14,7 +15,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static void main(String[] args) {
         Integer[] i = {0,1,2,3,4,5,6,7,8};
         DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>(i);
-        System.out.println(liste.inneholder(0));
+        liste.leggInn(4, 100);
+        System.out.println(liste.toString());
+        System.out.println(liste.omvendtString());
     }
 
     /**
@@ -132,7 +135,35 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(verdi, "Du kan ikke legge til null");
+        if(indeks<0 || indeks>antall){
+            throw new IndexOutOfBoundsException("Indeksen treffer ikke i listen");
+        }
+
+        if(tom()){
+            leggInn(verdi);
+            return;
+        }
+
+        if(indeks == 0){
+            hode = new Node<>(verdi, null, hode);
+            hode.neste.forrige = hode;
+            antall++;
+            endringer++;
+            return;
+        }
+
+        if(indeks == antall){
+            leggInn(verdi);
+            return;
+        }
+
+        Node forrige = finnNode(indeks-1);
+
+        forrige.neste = new Node(verdi, forrige, forrige.neste);
+        forrige.neste.neste.forrige = forrige.neste;
+        antall++;
+        endringer++;
     }
 
     @Override
