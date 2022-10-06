@@ -10,14 +10,6 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
-
-    public static void main(String[] args) {
-        DobbeltLenketListe<Integer> test = new DobbeltLenketListe<>(new Integer[] {10,11,12,13,14});
-        System.out.println(test.toString());
-        test.oppdater(5,5);
-        System.out.println(test.toString());
-    }
-
     /**
      * Node class
      *
@@ -80,7 +72,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        // Fra kompendiet
+        fratilKontroll(fra, til);
+
+        DobbeltLenketListe<T> ut = new DobbeltLenketListe<>();
+
+        ut.antall = 0;
+
+        if(fra != til) {
+            Node current = finnNode(fra);
+            ut.leggInn((T) current.verdi);
+            ut.antall++;
+
+            for (int i = fra+1; i < til; i++) {
+                current = current.neste;
+                ut.leggInn((T) current.verdi);        
+                ut.antall++;
+            }
+        }
+
+        ut.endringer = 0;
+        return ut;
     }
 
     @Override
@@ -124,8 +136,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private Node<T> finnNode(int indeks){
         int i;
         Node current;
+        // Sjekker om vi skal lete fra første eller siste indeks
         if(indeks < antall/2){
             current = hode;
+            // Traverserer gjennom listen til man finner riktig
              for(i = 0; i<indeks; i++){
                 current = current.neste;
              }
@@ -135,7 +149,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 current = current.forrige;
             }
         }
-
+        // Returnerer Noden
         return current;
     }
 
@@ -145,6 +159,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         return finnNode(indeks).verdi;
     }
+
+    private void fratilKontroll(int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > antall)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > antall(" + antall + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+
 
     @Override
     public int indeksTil(T verdi) {
@@ -194,6 +224,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         // Traveserer gjennom løkken og legger til verdiene
         for(int i = 1; i < antall; i++){
+            if(current.neste == null){
+                break;
+            }
             current = current.neste;
             sb.append(", " + current.verdi);
         }

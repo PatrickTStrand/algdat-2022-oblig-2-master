@@ -30,3 +30,28 @@ begge veier. Om listen ikke er tom legger jeg til den nye noden på slutten av l
 Jeg vil uansett inkrementere endringer og antall.
 
 Passerer alt på sjekklisten.
+
+Oppgave 3)
+
+FinnNode ble løst ved å først ta å sjekke om vi skal
+lete forrest eller bakerst i listen.
+Så traveserer man gjennom listen, fra først indeks
+eller siste indeks. Når man har riktig returnerer man
+Noden.
+
+For å løse hent returnerte jeg verdien til noden
+som blir hentet med finnNode.
+
+For å løse oppdater brukte jeg først indeksKontroll
+og requireNonNull. Så tok jeg finnNode,
+lagret den gamle verdien, endret så til den nye verdienl.
+Jeg måtte også huske å inkrementere endringer, før 
+jeg returnerte den gamle verdien.
+
+For å løse subliste måtte jeg legge til fratilKontroll
+fra kompendiet. Jeg laget så en ny liste,
+satte antall til 0,
+og så lenge fra og til ikke var lik la jeg til
+Nodene fra superlisten ved å finne førsete noden
+og legge til Nodene etterpå. Sørget også for at
+antall ble inkrementert.
