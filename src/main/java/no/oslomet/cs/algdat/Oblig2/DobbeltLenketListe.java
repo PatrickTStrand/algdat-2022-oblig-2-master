@@ -294,12 +294,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return false;
     }
 
-    private T fjernKortform(T ut){
-        antall--;
-        endringer ++;
-        return ut;
-    }
-
     @Override
     public T fjern(int indeks) {
         // Sjekker om indeks finnes i listen
@@ -314,7 +308,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             ut = hode.verdi;
             hode = hale = null;
             // Laget denne funksjonen for å unngå å gjenta endringer++ og antall-- hele tiden
-            return fjernKortform(ut);
+            antall--;
+            endringer ++;
+            return ut;
         }
 
         // Visst man skal fjerne halen setter jeg Noden foran til hale
@@ -322,7 +318,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             ut = hale.verdi;
             hale = hale.forrige;
             hale.neste = null;
-            return fjernKortform(ut);
+            antall--;
+            endringer ++;
+            return ut;
         }
 
         // Visst man skal fjerne hode setter jeg Noden etter til hode
@@ -330,7 +328,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             ut = hode.verdi;
             hode = hode.neste;
             hode.forrige = null;
-            return fjernKortform(ut);
+            antall--;
+            endringer ++;
+            return ut;
         }
 
         // Visst jeg kommer hit vet jeg at jeg skal fjerne en verdi midt i listen
@@ -341,7 +341,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // Sørger for at neste Node peker på Noden før den som skal slettes
         skalSlettes.neste.forrige = skalSlettes.forrige;
 
-        return fjernKortform(ut);
+        antall--;
+        endringer ++;
+        return ut;
     }
 
     @Override
