@@ -15,7 +15,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static void main(String[] args) {
         Integer[] i = {0,1,2,3,4,5,6,7,8};
         DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>(i);
-        liste.leggInn(4, 100);
+        System.out.println(liste.fjern(0));
+        System.out.println(liste.fjern(7));
+        System.out.println(liste.fjern(4));
         System.out.println(liste.toString());
         System.out.println(liste.omvendtString());
     }
@@ -255,9 +257,54 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    private T fjernKortform(T ut){
+        antall--;
+        endringer ++;
+        return ut;
+    }
+
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+        // Sjekker om indeks finnes i listen
+        if(indeks < 0 || indeks >= antall){
+            throw new IndexOutOfBoundsException("Indeks må være en gylid indeks");
+        }
+
+        T ut;
+
+        // Visst antall er 1 skal hode og hale settes til null fordi listen da blir tom
+        if(antall == 1){
+            ut = hode.verdi;
+            hode = hale = null;
+            // Laget denne funksjonen for å unngå å gjenta endringer++ og antall-- hele tiden
+            return fjernKortform(ut);
+        }
+
+        // Visst man skal fjerne halen etter jeg Noden foran til hale
+        if(indeks == antall-1){
+            ut = hale.verdi;
+            hale.forrige.neste = null;
+            hale = hale.forrige;
+            return fjernKortform(ut);
+        }
+
+        // Visst man skal fjerne hode setter jeg Noden etter til hode
+        if(indeks == 0){
+            ut = hode.verdi;
+            hode.neste.forrige = null;
+            hode = hode.neste;
+            return fjernKortform(ut);
+        }
+
+        // Visst jeg kommer hit vet jeg at jeg skal fjerne en verdi midt i listen
+        Node skalSlettes = finnNode(indeks);
+        ut = (T) skalSlettes.verdi;
+        // Sørger for at forrige Node peker på Noden etter den som skal slettes
+        skalSlettes.forrige.neste = skalSlettes.neste;
+        // Sørger for at neste Node peker på Noden før den som skal slettes
+        skalSlettes.neste.forrige = skalSlettes.forrige;
+
+        return fjernKortform(ut);
     }
 
     @Override
