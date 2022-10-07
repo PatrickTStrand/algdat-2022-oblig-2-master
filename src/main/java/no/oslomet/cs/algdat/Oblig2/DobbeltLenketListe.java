@@ -13,11 +13,12 @@ import java.util.Objects;
 public class DobbeltLenketListe<T> implements Liste<T> {
 
     public static void main(String[] args) {
-        Integer[] i = {0,1,2,3,4,5,6,7,8};
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>(i);
-        System.out.println(liste.fjern(0));
-        System.out.println(liste.fjern(7));
-        System.out.println(liste.fjern(4));
+        String[] s = {"A","B","E","C","D","E","F"};
+        DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(s);
+        System.out.println(liste.fjern("A"));
+        System.out.println(liste.fjern("F"));
+        System.out.println(liste.fjern("E"));
+        System.out.println(liste.fjern("G"));
         System.out.println(liste.toString());
         System.out.println(liste.omvendtString());
     }
@@ -254,7 +255,43 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        if(verdi == null || antall == 0){
+            return false;
+        }
+
+        Node current = hode;
+
+        for(int i = 0; i<antall; i++){
+            if(current.verdi.equals(verdi)){
+                if(antall == 1){
+                    hode = hale = null;
+                    antall--;
+                    endringer++;
+                    return true;
+                }
+                if(i == 0){
+                    hode = hode.neste;
+                    hode.forrige = null;
+                    antall--;
+                    endringer++;
+                    return true;
+                }
+                if(i == antall-1){
+                    hale = hale.forrige;
+                    hale.neste = null;
+                    antall--;
+                    endringer++;
+                    return true;
+                }
+                current.forrige.neste = current.neste;
+                current.neste.forrige = current.forrige;
+                antall--;
+                endringer++;
+                return true;
+            }
+            current = current.neste;
+        }
+        return false;
     }
 
     private T fjernKortform(T ut){
@@ -280,19 +317,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return fjernKortform(ut);
         }
 
-        // Visst man skal fjerne halen etter jeg Noden foran til hale
+        // Visst man skal fjerne halen setter jeg Noden foran til hale
         if(indeks == antall-1){
             ut = hale.verdi;
-            hale.forrige.neste = null;
             hale = hale.forrige;
+            hale.neste = null;
             return fjernKortform(ut);
         }
 
         // Visst man skal fjerne hode setter jeg Noden etter til hode
         if(indeks == 0){
             ut = hode.verdi;
-            hode.neste.forrige = null;
             hode = hode.neste;
+            hode.forrige = null;
             return fjernKortform(ut);
         }
 
