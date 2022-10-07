@@ -90,3 +90,20 @@ Om den ikke treffer de andre checkene vet jeg at den
 skal bli plassert et sted inne i listen, og jeg må
 da bare sørge for at pekerene går begge veier.
 Jeg trenger da ikke å forholde meg til hode og hale.
+
+Oppgave 6)
+
+Løst fjern(indeks) ved å ta forbehold for de fire scenarioene:
+
+1. Skal fjerne det eneste elementet i en liste
+2. Skal fjerne det siste elementet i en liste
+3. Skal fjerne det første elementet i en liste
+4. Skal fjerne et element i midten av listen
+
+Da var det bare å sørge for at pekerene gikk til riktig
+element, og at hode/hale eventuelt ble endret.
+
+For å løse fjern(verdi) traverserer man gjennom
+listen og ser om man finner verdien. Om man finner verdien
+fjerner man Noden, på samme måte som i finn(int).
+Om man ikke finner verdien returnerer man false

@@ -255,14 +255,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
+        // Returnerer false visst tom liste eller sjekker etter null
         if(verdi == null || antall == 0){
             return false;
         }
 
         Node current = hode;
 
+        // Traverserer gjennom listen
         for(int i = 0; i<antall; i++){
+            // Går videre visst man har funnet verdien
             if(current.verdi.equals(verdi)){
+                // Gjør det samme som i fjern(indeks)
                 if(antall == 1){
                     hode = hale = null;
                     antall--;
@@ -291,6 +295,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             current = current.neste;
         }
+        // Returnerer false om man ikke har funnet verdien
         return false;
     }
 
