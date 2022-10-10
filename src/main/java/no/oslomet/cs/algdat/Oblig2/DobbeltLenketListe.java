@@ -298,7 +298,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(antall == 1){
             ut = hode.verdi;
             hode = hale = null;
-            // Laget denne funksjonen for å unngå å gjenta endringer++ og antall-- hele tiden
             antall--;
             endringer ++;
             return ut;
@@ -325,12 +324,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         // Visst jeg kommer hit vet jeg at jeg skal fjerne en verdi midt i listen
-        Node skalSlettes = finnNode(indeks);
-        ut = (T) skalSlettes.verdi;
+        Node førSlettes = finnNode(indeks-1);
+        ut = (T) førSlettes.neste.verdi;
         // Sørger for at forrige Node peker på Noden etter den som skal slettes
-        skalSlettes.forrige.neste = skalSlettes.neste;
+        førSlettes.neste = førSlettes.neste.neste;
         // Sørger for at neste Node peker på Noden før den som skal slettes
-        skalSlettes.neste.forrige = skalSlettes.forrige;
+        førSlettes.neste.forrige = førSlettes;
 
         antall--;
         endringer ++;
