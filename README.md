@@ -107,3 +107,9 @@ For å løse fjern(verdi) traverserer man gjennom
 listen og ser om man finner verdien. Om man finner verdien
 fjerner man Noden, på samme måte som i finn(int).
 Om man ikke finner verdien returnerer man false
+
+Oppgave 7)
+
+For å få oppgave 8 sin test til å fungere implementerte jeg raskt en nullstill ved hjelp av metode 2.
+Går ikke videre inn på det ettersom at det ikke er krav når man er en person.
+
