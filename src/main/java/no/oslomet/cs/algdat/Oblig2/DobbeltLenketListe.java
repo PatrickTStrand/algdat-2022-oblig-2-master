@@ -5,21 +5,10 @@ package no.oslomet.cs.algdat.Oblig2;
 
 
 import javax.swing.undo.CannotUndoException;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
-
-    public static void main(String[] args) {
-        String[] s = {"A","B","E","C","D","E","F"};
-        DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(s);
-        System.out.println(liste.fjern("A"));
-        System.out.println(liste.fjern("F"));
-        System.out.println(liste.fjern("E"));
-        System.out.println(liste.fjern("G"));
-        System.out.println(liste.toString());
-        System.out.println(liste.omvendtString());
-    }
-
     /**
      * Node class
      *
@@ -409,7 +398,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -424,7 +415,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+            denne = finnNode(indeks);
+            fjernOK = false;
+            iteratorendringer = endringer;
         }
 
         @Override

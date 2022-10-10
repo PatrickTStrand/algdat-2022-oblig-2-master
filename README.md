@@ -113,3 +113,18 @@ Oppgave 7)
 For å få oppgave 8 sin test til å fungere implementerte jeg raskt en nullstill ved hjelp av metode 2.
 Går ikke videre inn på det ettersom at det ikke er krav når man er en person.
 
+Oppgave 8)
+
+Løste oppgave a ved å først feilhåndtere. Om
+man kom forbi satte man fjernOK  til true.
+Så man mellomlagre verdi, sette denne til neste
+og returnere verdi.
+
+Løste oppgave b ved å returnere en instans av
+DobbeltLenketListe.
+
+Løste oppgave c ved å kopiere den andre konstruktøren
+men å sette denne til finnNode(indeks)
+
+Løste oppgave d ved å kalle på konstruktøren
+om indeks er lovlig
